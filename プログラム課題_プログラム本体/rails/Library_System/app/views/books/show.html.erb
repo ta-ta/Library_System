@@ -1,0 +1,56 @@
+<%# 入力フォーム %>
+<h1>貸出 / 返却 / 登録</h1>
+<%= form_for Book.new do |b| %>
+<%= b.label :Username %>
+<%= b.text_field :username %>
+<%= b.label :ISBNコード %>
+<%= b.text_field :ISBN %>
+<%= b.submit '更新' %>
+<% end %>
+
+<br>
+
+<%# 操作方法 %>
+<FONT color="red">
+貸出: 
+</FONT>
+UsernameとISBNコードの入力後、更新してください。<br>
+
+<FONT color="red">
+返却: 
+</FONT>
+もう一度、貸出と同じ操作をしてください。<br>
+
+<FONT color="red">
+登録: 
+</FONT>
+ISBNコードのみ入力して、更新してください。(登録した本をそのまま借りる場合は、登録時にUsernameも入力すると貸出ステップを省けます。)<br>
+
+<FONT color="red">
+全Userの利用状況表示: 
+</FONT>
+Username、ISBNコードを両方とも入力せずに更新すると、現在の貸出状況を全表示します。<br>
+
+<FONT color="red">
+特定Userの利用状況の表示: 
+</FONT>
+Usernameのみ入力して、更新してください。
+
+<br>
+<br>
+
+ISBNコード : UserName<br>
+<%# 検索結果 %>
+<% @books.each do |book| %>
+  <%# ISBNコード %>
+  <p><%= book.ISBN %>
+    <FONT color="blue">
+    :
+    <%# 貸し出し中のユーザー名 %>
+    <% if book.username != '' then %>
+        <%= book.username %>
+    <% end %>
+    </FONT>
+    </p>
+<% end %>
+
